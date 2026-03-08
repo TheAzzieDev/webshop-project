@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <header>
+            <div class = "title-header">
+                <h1>Luna's Den</h1>
+                <div class = "nav-container-outer">
+                    <div>
+                        <div id = "Home" onclick="location.href = 'index.html'">
+                            Home
+                        </div>
+                        <div Id = "Shop" onclick="location.href = 'shop.html'">
+                            Shop
+                        </div>
+                        <div id = "Cart">
+                            Cart
+                        </div>
+                        <div id = "login" onclick="toggleLoginModal()">
+                            Login
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class = "login-box-outer" id = "login-box-outer">
+        </div>
+
+        <div class = "login-box-outer" id = "purchase-modal">
+            <div class = "login-box">
+                <div class="login-box-text">
+                    <div class="login-box-username-text">
+                        Enter Address:
+                    </div>
+                    <input type="text" id="address" class="username">
+                    <div class="login-box-username-text">
+                        Enter the Port Number:
+                    </div>
+                    <input type="text" id="port" class="username">
+                    <div>
+                        <input type = "button" value="Confirm purchase" onclick="checkout()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class = "list-of-items-outer" style="height: 60%; overflow-y: auto;">  
+        </div>
+
+        <div class = "purchase-button-container" onclick="toggleCheckoutModal()">
+            Proceed To Checkout
+        </div>
+
+
+        <div id = "product-view-modal">
+            <div class = "product-modal-close">
+                <div class = "product-modal-close-icon" onclick="closeModal('product-view-modal')">   
+                </div> 
+            </div>
+            <div class = "product-title">
+                A Shampoo bar
+            </div>
+            <div class = "product-view-info">
+                <div class = "image-container"></div>
+                <div class = "product-description">
+                    <div class = "price">
+                        500$
+                    </div>
+                    <div class = "description-text">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    </div>
+                </div>
+            </div>
+            <div class = "button-container">
+                <div class = "add-to-cart-container">
+                    <div class="add-to-cart">
+                        Cart
+                    </div>
+                </div>
+            </div>
+            <div class="merch-type-product-text">
+                Hello
+            </div>
+      
+        </div>
+
+    </body>
+    <script src="cartPage.js"></script>
+</html>

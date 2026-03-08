@@ -1,0 +1,186 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <header>
+            <div class = "title-header">
+                <h1>Luna's Den</h1>
+                <div class = "nav-container-outer">
+                    <div>
+                        <div id = "Home" onclick="location.href = 'index.html'">
+                            Home
+                        </div>
+                        <div Id = "Shop" onclick="location.href = 'shop.html'">
+                            Shop
+                        </div>
+                        <div id = "Cart">
+                            Cart
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class = "login-box-outer">
+        </div>
+
+        <div class = "list-of-items-outer">
+            <div class = "list-of-items-inner-container">
+        
+            </div>
+            
+
+            <div class = "add-button" onclick = "openAddModal()">
+                <div class = "add-button-icon">
+                    <img src = "assets/plus.svg" alt = "plus-icon">
+                </div>
+            </div>
+        </div>
+
+
+        <div id = "add-modal" class="configure-modal">
+            <div class = "product-modal-close">
+                <div class = "product-modal-close-icon" onclick="closeModal('add-modal')">   
+            </div> 
+
+                <div class="product-input-boxes">
+                    <div>Product Name</div>
+                    <div class="product-text-feild">
+                        <input type="text" value="" id="product-name-add">
+                    </div>
+                    <div>Price</div>
+                    <div class="product-text-feild">
+                        <input type="text" value="" id="product-price-add">
+                    </div>
+                    <div>MerchType</div>
+                    <div class = "select-container">
+                        <div class="product-select" onclick ="toggleProductSelect()">Select MerchType</div>
+                        <div class = "options">
+                        </div>
+                    </div>
+                   
+
+                
+
+                    <div>Stock</div>
+                    <div class="product-text-feild stock">
+                        <input type="text" value="" maxlength="4" id="product-stock-add">
+                    </div>
+
+
+
+                    <div>Description</div>
+                    <div class="product-text-feild">
+                        <textarea name="message" rows="15" cols="40" class ="product-description-add" id = "product-description-add"></textarea>
+                    </div>
+
+                    <div>Upload Image</div>
+                    <div class="product-text-feild">
+                        <input type="file" name="filename" style="text-align: right;" id="product-image-add">
+                    </div>
+                    
+                    
+                    <div class = "button-container" style="margin-bottom: 50px;" onclick = "addProduct()">
+                        <div class = "add-to-cart-container">
+                            <div class="add-to-cart" style="margin-left: 0;">
+                                Add Product
+                            </div>
+                        </div>
+                    </div>
+    
+                 
+                
+                </div>
+            </div>
+        </div>
+
+        <div id = "edit-modal" class="configure-modal">
+            <div class = "product-modal-close">
+                <div class = "product-modal-close-icon" onclick="closeModal('edit-modal')">   
+                </div> 
+            </div>
+
+            <div class="product-input-boxes">
+                <div>Product Name</div>
+                <div class="product-text-feild">
+                    <input type="text" value="" id="product-title-edit">
+                </div>
+                <div>Price</div>
+                <div class="product-text-feild">
+                    <input type="text" value="" id="product-price-edit">
+                </div>
+                <div>MerchType</div>
+                <div class = "select-container">
+                    <div class="product-select" onclick ="toggleProductSelect()" id="product-merch-type-edit">Select MerchType</div>
+                    <div class = "options">
+                    </div>
+                </div>
+               
+                <div>Stock</div>
+                <div class="product-text-feild stock">
+                    <input type="text" value="" maxlength="4" id="product-stock-edit">
+                </div>
+                
+                <div>Descriptin</div>
+                <div class="product-text-feild">
+                    <textarea name="message" rows="15" cols="40" class ="product-description-add" id="product-description-edit"></textarea>
+                </div>
+
+
+                <div>Upload Image</div>
+                <div class="product-text-feild">
+                    <input type="file" id="product-image-edit" name="filename" style="text-align: right;">
+                </div>
+
+                <div class = "button-container" style="margin-bottom: 50px;">
+                    <div class = "add-to-cart-container">
+                        <div class="add-to-cart" style="margin-left: 0;" onclick="editProduct()">
+                            Edit Product
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+
+
+    
+
+        <div id = "product-view-modal">
+            <div class = "product-modal-close">
+                <div class = "product-modal-close-icon" onclick="closeModal('product-view-modal')">   
+                </div> 
+            </div>
+            <div class = "product-title">
+                A Shampoo bar
+            </div>
+            <div class = "product-view-info">
+                <div class = "image-container"></div>
+                <div class = "product-description">
+                    <div class = "price">
+                        500$
+                    </div>
+                    <div class = "description-text">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    </div>
+                </div>
+            </div>
+            <div class = "button-container">
+                <div class = "add-to-cart-container">
+                    <div class="add-to-cart">
+                        Cart
+                    </div>
+                </div>
+            </div>
+            <div class="merch-type-product-text">
+                Hello
+            </div>
+      
+        </div>
+
+
+    </body>
+    <script src="admin.js"></script>
+</html>

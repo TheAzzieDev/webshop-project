@@ -1,0 +1,622 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+
+:root {
+    --nav-content-width: 20px; /* global scope */
+    --regular-font: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    --box-color: rgb(82, 44, 78);
+    --box-color-secondary: rgb(92, 34, 93);
+    --default-border-radius: 5px;
+    --background-color: rgb(31, 25, 25);
+    --option-selected: rgb(53, 49, 49);
+}
+
+body{
+    background-color: var(--background-color);
+    padding: 0;
+    margin: 0;
+}
+
+.title-header{
+    position: fixed;
+    text-align: center;
+    font-family: var(--regular-font);
+    color:white;
+    padding-top: 10px;
+    background-color: var(--box-color);
+    z-index: 1000;
+    width: 100%
+}
+
+.nav-container-outer div{
+    display: flex;
+    justify-content: center;
+    margin: 2px;
+}
+
+
+.nav-container-outer div{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
+.nav-container-outer div div{
+    background-color: black;
+    border-radius: var(--default-border-radius);
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: 1px double rgba(255, 255, 255, 0);
+}
+
+.nav-container-outer div div:hover{
+    border: 1px double white;
+}
+
+.nav-container-outer div #Home::before{
+    content: url("assets/home.svg");
+    width: var(--nav-content-width);
+}
+
+.nav-container-outer div #Shop::before{
+    content: url("assets/shop.svg");
+    width: var(--nav-content-width);
+}
+
+.nav-container-outer div #Cart::before{
+    content: url("assets/cart.svg");
+    width: var(--nav-content-width);
+}
+
+
+.home-page-section-1{
+    font-family: var(--regular-font);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    background-image: url(assets/pretty2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+.home-page-section-1 .home-page-section-1-inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 70%;
+}
+
+.home-page-box{
+    width: 400px !important;
+    height: 300px !important;
+    background-color: #892be26e;
+    border-radius: 10px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.home-page-box .home-page-box-text{
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 100%;
+    color: rgb(255, 255, 255);
+}
+
+.home-page-box .home-page-box-text div{
+    margin-left: 15px;
+}
+
+.home-page-box .home-page-box-text .home-page-box-description
+{
+    font-weight:lighter;
+    width: 340px;
+}
+
+.shop-container
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#product-modal{
+    position: absolute;
+    width:600px;
+    height: 450px;
+    z-index: 10000;
+    background-color: aqua;
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility:hidden;
+    transition: 100ms;
+}
+
+.product-modal-close{
+    text-align: right;
+}
+
+.product-modal-close-icon{
+    position: sticky;
+    top: 10px;
+    display: inline-block;
+    margin: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(0, 0, 0);
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px double rgba(255, 255, 255, 0);
+    content: url("assets/cross.svg");
+}
+
+.product-modal-close-icon:hover{
+    border: 1px double rgb(255, 255, 255);
+}
+
+.products-outer{
+    z-index: 100;
+    width: 100%;
+    height: 75%;
+    text-align: center;
+    position: relative;
+}
+
+.products-inner{
+    display: inline-grid;
+    grid-template-columns: 300px 300px 300px;
+    gap: 25px;
+    height: 100%;
+}
+
+
+
+/*#2b64af6e*/
+.product-item{
+    height: 300px;
+    border: 3px double;
+    font-family: var(--regular-font);
+    color:white;
+    cursor: pointer;
+    transition: 300ms;
+    background-image: url("assets/pretty2.jpg");
+    background-size: cover;
+    position: relative;
+}
+.product-item:hover{
+    box-shadow: inset 0 0 0 1000px rgba(16, 15, 14, 0.153);
+}
+
+
+
+.product-item-title{
+    font-weight: bolder;
+    text-align: left;
+    padding-top: 15px;
+    padding-left: 10px;
+    z-index: 10;
+}
+
+.login-box-outer{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    transition: 100ms;
+    visibility: hidden;
+}
+
+
+.login-box{
+    width: 400px !important;
+    height: 400px !important;
+    background-color: var(--box-color);
+    border-radius: 10px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.login-box-text{
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.login-box-text div{
+    margin: 15px;
+}
+
+
+.login-box-text input{
+    font-family: var(--regular-font);
+    font-weight: lighter;
+    color: white;
+    padding-left: 10px;
+}
+
+.login-box-text input[type="button"]{
+    font-family: var(--regular-font);
+    font-weight: lighter;
+    color: white;
+    padding: 10px 30px 10px 30px;
+    background-color: black;
+    text-align: center;
+    border-radius: var(--default-border-radius);
+    border: 1px double rgba(255, 255, 255, 0);
+    cursor: pointer;
+}
+
+.login-box-text input[type="button"]:hover{
+    border: 1px double white;
+}
+
+.login-box-username-text{
+    font-family: var(--regular-font);
+    font-weight: lighter;
+    color: white;
+}
+
+.username{
+    width: 250px;
+    height: 40px;
+    border-radius: var(--default-border-radius);
+    background-color: black;
+}
+
+.list-of-items-outer{
+    width: 100%;
+    z-index: 100;
+    position: absolute;
+    top: 150px;
+    height: 3000px;
+    display: block;
+    text-align: center;
+}
+
+.list-of-items-inner-container{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.list-of-items-inner{
+    display: inline-flex;
+    flex-direction: row;
+    width: 80%;
+    height: 80px;
+    gap: 100px;
+}
+
+.list-of-items-inner > div{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    font-family: var(--regular-font);
+    font-weight: 500;
+}
+.item-text-holder-inner{
+    width: 100px;
+    overflow:hidden; 
+    white-space:nowrap; 
+    text-overflow: ellipsis
+}
+.item-button{
+    background-color: black;
+    border-radius: var(--default-border-radius);
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+.item-button:hover{
+    background-color: var(--box-color);
+}
+
+
+.list-of-items-inner:nth-child(2n + 1){
+    background-color: rgb(240, 240, 240);
+}
+.list-of-items-inner:nth-child(2n){
+    background-color: rgba(208, 207, 209, 0.959);
+}
+
+.add-button{
+    width: 90px;
+    height: 90px;
+    background-color: black;
+    border-radius: var(--default-border-radius);
+    color: white;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    margin: 80px;
+    cursor: pointer;
+    border: 1px double rgb(0, 0, 0);
+}
+
+.add-button-icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.add-button:hover{
+    border: 1px double white;
+}
+
+.configure-modal{
+    position: fixed;
+    width: 600px;
+    height: 450px;
+    z-index: 10000;
+    background-color: var(--box-color-secondary);
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility:hidden;
+    transition: 100ms;
+    overflow-y: scroll;
+    scrollbar-color: black;
+}
+
+
+.product-input-boxes{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: var(--regular-font);
+    font-weight: 500;
+    color: white;
+    align-items: center;
+ 
+}
+
+.product-text-feild {
+    margin: 8px;
+}
+
+.product-text-feild input[type="text"]{
+    color: white;
+    padding: 10px 50px;
+    border-radius: var(--default-border-radius);
+    background-color: var(--background-color);
+    font-family: var(--regular-font);
+    font-size: 12px;
+}
+
+.product-description-add{
+    resize: none;
+    background-color: var(--background-color);
+    border-radius: var(--default-border-radius);
+    color: white;
+    font-family: var(--regular-font);
+    font-size: 12px;
+    padding: 10px;
+}
+
+
+
+#product-view-modal{
+    position: fixed;
+    width:600px;
+    height: 450px;
+    z-index: 10000;
+    background-color: var(--box-color-secondary);
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility:hidden;
+    transition: 100ms;
+    color: white
+}
+
+.product-view-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    z-index: 100;
+    gap: 5px;
+}
+
+.product-title{
+    font-family: var(--regular-font);
+    font-weight: 900;
+    font-size: large;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.product-title:before{
+    content: "──୨ৎ── ";
+}
+
+.product-title:after{
+    content: " ──୨ৎ──";
+}
+
+.price{
+    font-size: large;
+    font-weight: 900;
+}
+
+.image-container{
+    width: 230px;
+    height: 250px;
+    background-size: cover;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.select-container{
+    background-color: var(--background-color);
+    border: 1px solid light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-radius: var(--default-border-radius) var(--default-border-radius) 0 0;
+    width: 200px;
+    height: 50px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    margin: 8px;
+
+}
+
+.product-select{
+    font-family: var(--regular-font);
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+.options{
+    position: absolute;
+    background-color: var(--background-color);
+    top: 45px;
+    overflow-y: auto;
+    scrollbar-color: light-dark(rgb(118, 118, 118), rgb(133, 133, 133)) var(--background-color);
+    scrollbar-width: thin;
+    visibility: hidden;
+}
+.option{
+    text-align: center !important;
+    font-size: small;
+    padding: 10px 0;
+    background-color: var(--background-color);
+    width: 200px;
+    cursor: pointer;
+    
+}
+
+.option:hover{
+    background-color: var(--option-selected);
+}
+
+
+
+
+
+.stock input{
+    padding: 10px 10px !important;
+    width: 70px;
+    text-align: center;
+}
+
+.product-description{
+    width: 300px;
+    height: 250px;
+    font-family: var(--regular-font);
+    font-weight: 100;
+    font-size: medium;
+    overflow-y: hidden;
+    margin-left: 10px;
+}
+
+.button-container{
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.add-to-cart-container{
+    height: 40px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 40px;
+}
+
+.add-to-cart{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: black;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px double rgba(255, 255, 255, 0);
+    font-family: var(--regular-font);
+    font-weight: lighter;
+    color: white;
+    margin-left: 30px;
+    padding-right: 20px;
+    border: 1px double rgba(255, 255, 255, 0);
+}
+
+.add-to-cart:hover{
+    border: 1px double rgb(255, 255, 255);
+}
+
+.add-to-cart:before{
+    padding-left: 10px;
+    padding-right: 5px;
+    content: url("assets/plus-smaller.svg");;
+}
+
+.merch-type-product-text{
+    float: right;
+    margin-right: 100px;
+    font-family: var(--regular-font);
+}
+
+
+.purchase-button-container{
+    color: white;
+    font-family: var(--regular-font);
+    font-size: larger;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 20px 25px;
+    background-color: black;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 100ms;
+    visibility: hidden;
+    border: 1px solid;
+    border-radius: var(--default-border-radius);
+    cursor: pointer;
+    border: 1px double rgba(255, 255, 255, 0);
+}
+
+.purchase-button-container:hover{
+    border: 1px double rgb(255, 255, 255);
+}
+
+
+
+
+
+
