@@ -153,6 +153,7 @@ mycursor.execute("DROP TRIGGER IF EXISTS updateCountDelete")
 mycursor.execute("DROP TRIGGER IF EXISTS updateCountUpdate")
 mycursor.execute("DROP TRIGGER IF EXISTS updateCountInsert")
 
+
 mycursor.execute("""CREATE TRIGGER updateCountDelete
 AFTER DELETE ON products FOR EACH ROW
 BEGIN
@@ -175,6 +176,11 @@ END;""")
 
 mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('shirt', 0)")
 mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('pants', 0)")
+mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('snacks', 0)")
+mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('drinks', 0)")
+
+
+
 
 
 mycursor.close()
@@ -470,16 +476,24 @@ def addToCart():
     
         passwordInDB = hasUserPermission(mycursor, username, password, True)
         if(passwordInDB):
-            sql = "INSERT INTO cart(username, productName) VALUES(%s, %s)"
-            val = (username, productName)
-            executeWithNoRows(mycursor, sql, val)
+
+            sql = "SELECT stock FROM products WHERE productName = %s"
+            val = (productName ,)
+            result = executeWithRows(mycursor, sql, val, False)
+            stock = result[0]["stock"]
+            if stock == 0:
+                response = jsonify({'result': False})
+            else:
+                response = jsonify({'result': True})
+                sql = "INSERT INTO cart(username, productName) VALUES(%s, %s)"
+                val = (username, productName)
+                executeWithNoRows(mycursor, sql, val)
         
     except:
         response = jsonify({'result': False})
         response.headers.add('Access-Control-Allow-Credentials', 'true')
         return response
     
-    response = jsonify({'result': True, "ID": passwordInDB})
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
 

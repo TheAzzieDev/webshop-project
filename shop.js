@@ -123,7 +123,7 @@ addToCart = async(productName) =>{
     })).json();
     console.log(response);
     response = response["result"];
-
+    
 }
 
 openViewModal= async(productName) =>{
@@ -147,15 +147,21 @@ openViewModal= async(productName) =>{
     let image = document.getElementsByClassName("image-container")[0];
     let addToCartElem = document.getElementsByClassName('add-to-cart-container')[0];
 
+    if(response["stock"] == 0)
+        addToCartElem.style.visibility = "hidden";
+    else
+        addToCartElem.style.visibility = "visible";
     
 
     title.innerHTML = `${response["productName"]}`;
     price.innerHTML = `${response["basePrice"]}$`;
     description.innerHTML = `${response["description"]}`;
-    merchType.innerHTML = `<b>CATAGORY:</b> ${response["typeOfMerch"]}`;
+    merchType.innerHTML = `<span style="margin-right:10px;"><b>Stock:</b>${response["stock"]}</span> <b>CATAGORY:</b> ${response["typeOfMerch"]}`;
     image.style.backgroundImage =  `url('assets/${response["imageFilename"]}')`;
     image.style.backgroundPosition = "center";
     addToCartElem.onclick = () => addToCart(response["productName"]);
+
+
 
 
     element.style.opacity = 1;

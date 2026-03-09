@@ -24,7 +24,7 @@ async function openViewModal(productName) {
     title.innerHTML = `${response["productName"]}`;
     price.innerHTML = `${response["basePrice"]}$`;
     description.innerHTML = `${response["description"]}`;
-    merchType.innerHTML = `<b>CATAGORY:</b> ${response["typeOfMerch"]}`;
+    merchType.innerHTML = `<b>Stock:</b>${response["stock"]} <b>  CATAGORY:</b> ${response["typeOfMerch"]}`;
     image.style.backgroundImage =  `url('assets/${response["imageFilename"]}')`;
     image.style.backgroundPosition = "center";
 

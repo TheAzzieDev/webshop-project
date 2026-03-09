@@ -154,7 +154,7 @@ addProduct = async() => {
     formData.append("productName", `${productName.value}`);
     formData.append("price", productPrice.value);
     formData.append("merchType", `${merchType.innerHTML}`);
-    formData.append("description", description.innerHTML);
+    formData.append("description", description.value);
     formData.append("stock", `${stock.value}`);
 
     if(image.files.length != 0) 
@@ -250,6 +250,7 @@ document.addEventListener("DOMContentLoaded", async()=>{
     //localStorage.setItem("objects", objectString);
     let loginOuterBox = document.getElementsByClassName("login-box-outer")[0];
     let productBox = document.getElementsByClassName("list-of-items-outer")[0];
+    let addButton = document.getElementsByClassName("add-button")[0];
     console.log("hey");
     let response = await (await fetch("http://127.0.0.1:5000/getProductsAdmin", {
         "method": "GET",
@@ -267,6 +268,7 @@ document.addEventListener("DOMContentLoaded", async()=>{
         console.log("HEYYY THERE");
         loginOuterBox.style.visibility = "hidden";
         productBox.style.visibility = "visible";
+        addButton.style.visibility = "visible";
         
         let productObject = "";
         for(let index = 0; index < response.length; index++)

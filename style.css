@@ -371,6 +371,7 @@ body{
     margin: 80px;
     cursor: pointer;
     border: 1px double rgb(0, 0, 0);
+    visibility: hidden;
 }
 
 .add-button-icon{
