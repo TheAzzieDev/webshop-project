@@ -13,6 +13,7 @@ Furthermore the ammbition is that the administrator will be able to see what **p
 **customized recomendations** of products using **cookies**. Before all this the project will be heavily refractored, as its
 its current state, its accumilated lots of technical debt.
 
+
 ### HOW TO RUN
 1. Create a schema i MYSQL Workbench
 2. Create an .env file, add the following content:
@@ -26,4 +27,12 @@ ADMIN_PASS=PASSWORD_FOR_ADMIN_ACOUNT
 3. change directory to the backend folder. Then in terminal type:
 ```pip install requirements.txt```
 4. Run the backendServer.py file first, then run index.html as the webserver(there is a button in the right corner in vscode)
+
+
+### INTENDED USAGE IMPORTANT!!!!!
+There is an ADMIN PANEL which can reached by typing adminPage.html in the url. Then Enter you admin account credentials. 
+From there you have access to the admin panel! **NOTE** that you do not need to provide a image when making a product nor do you need to provide when editing. In the latter case of editing the image provided when creating product will be used if left blank.
+From there you can create/login to a user account and purchase a product.
+
+
 
