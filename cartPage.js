@@ -69,13 +69,13 @@ getCookie = (cookieName) => {
 
 
 register = async() =>{
-    let username = document.getElementById("username");
-    let password = document.getElementById("password");
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
     
     let formData = new FormData();
     
-    formData.append("username", username.value);
-    formData.append("password", password.value);
+    formData.append("username", username);
+    formData.append("password", password);
 
     let response = await (await fetch("http://127.0.0.1:5000/createUser", {
         "method": "POST",
@@ -84,6 +84,21 @@ register = async() =>{
     })).json();
     console.log(response);
     response = response["result"];
+
+    formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+
+    response = await (await fetch("http://127.0.0.1:5000/loginUser", {
+        "method": "POST",
+        "Content-Type": "multipart/form-data",
+        "body": formData
+    })).json();
+
+    let id = response["ID"];
+    if(response["result"]){
+        setCookie(username, id);
+    }
     location.reload();
 }
 
@@ -113,8 +128,8 @@ login = async() =>{
     })).json();
     console.log(response);
     id = response["ID"];
-    
-    setCookie(username.value, id);
+    if(response["result"])
+        setCookie(username.value, id);
     location.reload();
 }
 
@@ -246,6 +261,7 @@ document.addEventListener("DOMContentLoaded", async()=>{
     if (getCookie("user")){
         let loginButton = document.getElementById("login");
         loginButton.innerHTML = getCookie("user");
+
     }
     
     console.log(userCookie);
@@ -256,6 +272,7 @@ document.addEventListener("DOMContentLoaded", async()=>{
     let loginOuterBox = document.getElementById("login-box-outer");
     let productBox = document.getElementsByClassName("list-of-items-outer")[0];
     let checkOutButton = document.getElementsByClassName("purchase-button-container")[0];
+    let emptyText = document.getElementsByClassName("is-empty-text")[0];
 
     let response = await (await fetch("http://127.0.0.1:5000/getCart", {
         "method": "GET",
@@ -300,12 +317,15 @@ document.addEventListener("DOMContentLoaded", async()=>{
 `;     
         }   
         productBox.innerHTML = productObject;
-        if(response.length != 0)
+        if(response.length != 0){
             checkOutButton.style.visibility = "visible";
-    
-    
-        else
-            alert("Your Cart is Empty");
+            emptyText.style.visibility = "hidden";
+        }
+        else{
+            emptyText.style.visibility = "visible";
+        }   
+  
+            
     
     }
     else{
@@ -335,9 +355,6 @@ document.addEventListener("DOMContentLoaded", async()=>{
       loginElement.innerHTML = loginObject;
       checkOutButton.style.visibility = "hidden";
     
-      if(!Id)
-        alert("Please Login To add to see your cart!");
-
 
      
     }

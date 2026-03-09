@@ -99,7 +99,7 @@ IN productNameIN VARCHAR(120),
 IN basePriceIN INT, 
 IN stockIN INT, 
 IN typeOfMerchIN VARCHAR(80), 
-IN imageFilennameIN VARCHAR(200),
+IN imageFilenameIN VARCHAR(200),
 IN descriptionIN VARCHAR(4096)
 )
 BEGIN
@@ -120,8 +120,12 @@ END;""")
 
 mycursor.execute("""CREATE PROCEDURE updateMerchStock(IN merchTypeIN VARCHAR(80))
 BEGIN
-	DECLARE counter INT;
-    SELECT COUNT(typeOfMerch) FROM products WHERE typeOfMerch = merchTypeIN GROUP BY typeOfMerch;
+    DECLARE counter INT;
+    SELECT COUNT(typeOfMerch) INTO counter FROM products WHERE typeOfMerch = merchTypeIN GROUP BY typeOfMerch;
+    IF counter IS NULL THEN 
+		SET counter := 0;
+    END IF;
+	UPDATE merchtype SET stock = counter WHERE name = merchTypeIN;
 END;""")
 
 
@@ -136,7 +140,12 @@ END;""")
 mycursor.execute("""CREATE TRIGGER forEachPurchasedItem
 AFTER INSERT ON purchases FOR EACH ROW
 BEGIN
-	DELETE FROM cart WHERE username = NEW.username AND productName = NEW.productName;
+DECLARE currentStock INT;
+    SELECT stock INTO currentStock FROM products WHERE productName = NEW.productName;
+	IF currentStock != 0 THEN
+		UPDATE products SET stock = stock - 1 WHERE productName = NEW.productName;
+    END IF;
+    DELETE FROM cart WHERE username = NEW.username AND productName = NEW.productName;
 END;""")
 
 
@@ -299,7 +308,9 @@ def getProduct():
     sql = "SELECT * FROM products WHERE productName = %s"
     val = (product, )
     result = executeWithRows(mycursor, sql, val)
-    return jsonify({"result": result})
+    response = jsonify({"result": result})
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
 
 
 @app.route("/getAllProducts", methods=["GET"])
@@ -334,7 +345,7 @@ def loginAdmin():
 
 
 
-@app.route("/editProduct", methods=["PUT"])
+@app.route("/editProduct", methods=["PUT", "OPTIONS"])
 def editProduct():
     mycursor = mydb.cursor(dictionary=True)
     try:
@@ -344,12 +355,16 @@ def editProduct():
             (product, price, stock, merchtype, filename, description) = getRequestProducts(request)
             sql = "CALL updateProduct(%s, %s, %s, %s, %s, %s)"
 
-            if(filename == default_filename):
-                filename = ""
+            if(filename == ""):
+                filename = default_filename
             args = (product, price, stock, merchtype, filename, description)
             mycursor.execute(sql, args)
             mydb.commit()
             mycursor.close()
+
+            response = jsonify({'result': True})
+            response.headers.add('Access-Control-Allow-Credentials', 'true')
+            return response
 
         else:
             response = jsonify({'result': False})
@@ -361,10 +376,6 @@ def editProduct():
         response.headers.add('Access-Control-Allow-Credentials', 'true')
         return response
     
-    response = jsonify({'result': True})
-    response.headers.add('Access-Control-Allow-Credentials', 'true')
-    return response
-
 @app.route("/deleteProduct", methods=["POST"])
 def deleteProduct():
     mycursor = mydb.cursor(dictionary=True)

@@ -46,7 +46,10 @@ login = async() =>{
     console.log(response);
     id = response["ID"];
     
-    setCookie(username.value, id);
+    if(response["result"]){
+        setCookie(username.value, id);
+    }
+    location.reload();
 
 }
 
@@ -168,7 +171,7 @@ addProduct = async() => {
         "body": formData
       });
     console.log(await response.json());
-    //location.reload();
+    location.reload();
 }
 
 editProduct = async() =>{
@@ -205,6 +208,7 @@ editProduct = async() =>{
 
     element.style.opacity = 0;
     element.style.visibility = "hidden";
+    location.reload();
 }
 
 deleteProduct = async(productName) => {

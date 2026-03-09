@@ -187,6 +187,19 @@ body{
     height: 100%;
 }
 
+.is-empty-text{
+    position: fixed;
+    font-size: x-large;
+    font-family: var(--regular-font);
+    font-weight: bolder;
+    color: white;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+}
+
+
+
 
 
 /*#2b64af6e*/

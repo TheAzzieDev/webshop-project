@@ -166,15 +166,15 @@ openViewModal= async(productName) =>{
 
 
 register = async() =>{
-    let username = document.getElementById("username");
-    let password = document.getElementById("password");
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
     
     let formData = new FormData();
 
     console.log(username);
     
-    formData.append("username", username.value);
-    formData.append("password", password.value);
+    formData.append("username", username);
+    formData.append("password", password);
 
     let response = await (await fetch("http://127.0.0.1:5000/createUser", {
         "method": "POST",
@@ -183,7 +183,18 @@ register = async() =>{
     })).json();
     console.log(response);
     response = response["result"];
-    location.reload();
+
+    response = await (await fetch("http://127.0.0.1:5000/loginUser", {
+        "method": "POST",
+        "Content-Type": "multipart/form-data",
+        "body": formData
+    })).json();
+
+    let id = response["ID"];
+    if(response["result"]){
+        setCookie(username, id);
+    }
+   location.reload();
 
 }
 
@@ -206,9 +217,11 @@ login = async() =>{
     })).json();
     console.log(response);
     id = response["ID"];
-    
-    setCookie(username.value, id);
+    if(response["result"]){
+        setCookie(username.value, id);
+    }
     location.reload();
+ 
 
 }
 
@@ -220,7 +233,8 @@ document.addEventListener("DOMContentLoaded", async()=>{
         loginButton.innerHTML = getCookie("user");
     }
     let shopContainer = document.getElementsByClassName("products-inner")[0];
-    let loginOuterBox= document.getElementsByClassName("login-box-outer")[0]
+    let loginOuterBox= document.getElementsByClassName("login-box-outer")[0];
+    let isEmptyText = document.getElementsByClassName("is-empty-text")[0];
     loginOuterBox.visibility = "hidden";
 
  
@@ -233,7 +247,12 @@ document.addEventListener("DOMContentLoaded", async()=>{
 
     let merchTypes = response["merchType"];
     response = response["result"];
-
+    
+    if(response.length == 0)
+        isEmptyText.style.visibility = "visible";
+    else
+        isEmptyText.style.visibility = "hidden";
+        
     
     for(let index = 0; index < response.length; index++)
     {
