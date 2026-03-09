@@ -32,6 +32,7 @@ ADMIN_PASS=PASSWORD_FOR_ADMIN_ACOUNT
 ### INTENDED USAGE IMPORTANT!!!!!
 There is an ADMIN PANEL which can reached by typing adminPage.html in the url. Then Enter you admin account credentials. 
 From there you have access to the admin panel! **NOTE** that you do not need to provide a image when making a product nor do you need to provide when editing. In the latter case of editing the image provided when creating product will be used if left blank.
-From there you can create/login to a user account purchase a product.
+From there you can create/login to a user account and purchase a product.
+
 
 
