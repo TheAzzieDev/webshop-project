@@ -21,7 +21,7 @@ mydb = mysql.connector.connect(
 )
 
 
-mycursor = mydb.cursor(dictionary=True)
+mycursor = mydb.cursor()
 
 mycursor.execute("SET FOREIGN_KEY_CHECKS = 0")
 mycursor.execute("DROP TABLE IF EXISTS buyers")
@@ -174,14 +174,33 @@ BEGIN
 END;""")
 
 
-mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('shirt', 0)")
+mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('shirts', 0)")
 mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('pants', 0)")
 mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('snacks', 0)")
 mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('drinks', 0)")
 
 
 
+sql = "INSERT INTO products (productName, basePrice, stock, typeOfMerch, imageFilename, description) VALUES (%s, %s, %s, %s, %s, %s)"
 
+products = [
+("Green Crystal Candy", 3, 10, "snacks", "crystalCandy.jpg",
+ "This magical treat is guaranteed to make you feel breezy! With a nice cool taste of mint and vanilla, a must try."),
+
+("Strawberry Ramune Soda", 4, 13, "drinks", "strawberrySoda.png",
+ "A refreshing Japanese soda with a delicious strawberry flavour, perfect for summer!"),
+
+("Spicy Seaweed Kick", 3, 8, "snacks", "seaweed.png",
+ "If you don't like these we can't be friends, it's literally an Umami bomb."),
+
+("AriaDen Hoodie", 50, 25, "shirts", "hoodie.png",
+ "A cozy hoodie you can wear proudly to represent Aria's Den!"),
+
+("AriaDen Pants", 40, 25, "pants", "pants.png",
+ "Wear the stylish pants with pride and represent the Den.")
+]
+
+mycursor.executemany(sql, products)
 
 mycursor.close()
 mydb.commit()
