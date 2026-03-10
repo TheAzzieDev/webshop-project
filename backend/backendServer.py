@@ -105,7 +105,7 @@ IN descriptionIN VARCHAR(4096)
 BEGIN
 	DECLARE newFilename VARCHAR(200);
 	IF(imageFilenameIN = "") THEN
-		SELECT filename INTO newFilename 
+		SELECT imageFilename INTO newFilename 
         FROM products WHERE productName = productNameIN;
 	ELSE
 		SET newFilename = imageFilenameIN;
@@ -114,8 +114,9 @@ BEGIN
     basePrice = basePriceIN, 
     stock = stockIN, 
     typeOfMerch = typeOfMerchIN, 
-    imageFilename = imageFilenameIN, 
-    description = descriptionIN;
+    imageFilename = newFilename, 
+    description = descriptionIN
+    WHERE productName = productNameIN;
 END;""")
 
 mycursor.execute("""CREATE PROCEDURE updateMerchStock(IN merchTypeIN VARCHAR(80))
@@ -227,7 +228,6 @@ def getRequestProducts(request):
             if not os.path.exists(f"assets/{filename}"):
                 file.save(f"assets/{filename}")
     except:
-        print("im HEre!!!!")
         return (product, price, stock, merchtype, default_filename, description)
     return (product, price, stock, merchtype, filename, description)
 
@@ -378,10 +378,10 @@ def editProduct():
         password = request.cookies.get("ID")
         if hasAdminAccess(username, password):
             (product, price, stock, merchtype, filename, description) = getRequestProducts(request)
+            if filename == default_filename:
+                filename = ""
             sql = "CALL updateProduct(%s, %s, %s, %s, %s, %s)"
 
-            if(filename == ""):
-                filename = default_filename
             args = (product, price, stock, merchtype, filename, description)
             mycursor.execute(sql, args)
             mydb.commit()

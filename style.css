@@ -184,7 +184,7 @@ body{
     display: inline-grid;
     grid-template-columns: 300px 300px 300px;
     gap: 25px;
-    height: 100%;
+    height: auto;
 }
 
 .is-empty-text{

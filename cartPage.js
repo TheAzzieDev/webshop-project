@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", async()=>{
         {
             console.log(response[index]["basePrice"]);
             productObject += `<div class = "list-of-items-inner">
-        <div class = "item-text-holder-inner" style="margin-left: 40px;">
+        <div class = "item-text-holder-inner" style="margin-left: 40px; width: 200px;">
             <div class = "item-text">${response[index]["productName"]}</div>
         </div>
         <div class = "item-text-holder-inner">
