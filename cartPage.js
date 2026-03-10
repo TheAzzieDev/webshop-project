@@ -166,11 +166,11 @@ toggleLoginModal = () => {
               <div class = "login-box">
                   <div class="login-box-text">
                       <div class="login-box-username-text">
-                          Enter Username UWU
+                          Enter Username
                       </div>
                       <input type="text" class="username" id="username">
                       <div class="login-box-username-text">
-                          Enter the Password nya~~
+                          Enter the Password
                       </div>
                       <input type="password" class="username" id="password">
                       <div>
@@ -335,11 +335,11 @@ document.addEventListener("DOMContentLoaded", async()=>{
               <div class = "login-box">
                   <div class="login-box-text">
                       <div class="login-box-username-text">
-                          Enter Username UWU
+                          Enter Username
                       </div>
                       <input type="text" class="username" id="username">
                       <div class="login-box-username-text">
-                          Enter the Password nya~~
+                          Enter the Password
                       </div>
                       <input type="password" class="username" id="password">
                       <div>

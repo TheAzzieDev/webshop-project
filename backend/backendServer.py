@@ -134,7 +134,7 @@ mycursor.execute("""CREATE PROCEDURE getValuesForPurchase(IN usernameIN VARCHAR(
 BEGIN
 	SELECT c.productName, c.username, p.basePrice FROM cart c 
 	INNER JOIN products p ON p.productName = c.productName
-	WHERE c.username = "bob";
+	WHERE c.username = usernameIN;
 END;""")
 
 
@@ -175,7 +175,7 @@ BEGIN
 END;""")
 
 
-mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('shirts', 0)")
+mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('tops', 0)")
 mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('pants', 0)")
 mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('snacks', 0)")
 mycursor.execute("INSERT INTO merchtype(name, stock) VALUES ('drinks', 0)")
@@ -194,7 +194,7 @@ products = [
 ("Spicy Seaweed Kick", 3, 8, "snacks", "seaweed.png",
  "If you don't like these we can't be friends, it's literally an Umami bomb."),
 
-("AriaDen Hoodie", 50, 25, "shirts", "hoodie.png",
+("AriaDen Hoodie", 50, 25, "tops", "hoodie.png",
  "A cozy hoodie you can wear proudly to represent Aria's Den!"),
 
 ("AriaDen Pants", 40, 25, "pants", "pants.png",
@@ -501,7 +501,7 @@ def addToCart():
             result = executeWithRows(mycursor, sql, val, False)
             stock = result[0]["stock"]
             if stock == 0:
-                response = jsonify({'result': False})
+                response = jsonify({'result': False, "reason": 0})
             else:
                 response = jsonify({'result': True})
                 sql = "INSERT INTO cart(username, productName) VALUES(%s, %s)"
@@ -509,7 +509,7 @@ def addToCart():
                 executeWithNoRows(mycursor, sql, val)
         
     except:
-        response = jsonify({'result': False})
+        response = jsonify({'result': False, "reason": 1})
         response.headers.add('Access-Control-Allow-Credentials', 'true')
         return response
     

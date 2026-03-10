@@ -64,11 +64,11 @@ toggleLoginModal = () => {
               <div class = "login-box">
                   <div class="login-box-text">
                       <div class="login-box-username-text">
-                          Enter Username UWU
+                          Enter Username
                       </div>
                       <input type="text" class="username" id="username">
                       <div class="login-box-username-text">
-                          Enter the Password nya~~
+                          Enter the Password
                       </div>
                       <input type="password" class="username" id="password">
                       <div>
@@ -105,13 +105,11 @@ closeModal = () => {
 
 addToCart = async(productName) =>{
     console.log("I have been run");
-    let username = getCookie("username");
+    let username = getCookie("user");
     let password = getCookie("ID");
     
     let formData = new FormData();
     
-    formData.append("username", username);
-    formData.append("password", password);
     formData.append("productName", productName);
 // $2b$12$UWtOPOgY2DLaEgZM.Pa5Yeqk7lD16fjBsPBiyaY33Z.UED3Zb6LM
 //  $2b$12$UWtOPOgY2DLaEgZM.Pa5Yeqk7lD16fjBsPBiyaY33Z.UED3Zb6LMi
@@ -122,8 +120,15 @@ addToCart = async(productName) =>{
         "body": formData
     })).json();
     console.log(response);
-    response = response["result"];
-    
+
+    if(!response["result"]){
+        if(response["reason"] == 0)
+            alert("can't add product that is out of stock");
+        else if(response["reason"] == 1 && username != false)
+            alert("Already added!");
+        else 
+            alert("Login or Create an account Before adding to cart!");
+    }
 }
 
 openViewModal= async(productName) =>{

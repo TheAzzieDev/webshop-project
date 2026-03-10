@@ -71,7 +71,7 @@ openEditModal = async(productName) => {
     let title = document.getElementById("product-title-edit");
     let price = document.getElementById("product-price-edit");
     let description = document.getElementById("product-description-edit");
-    let merchType  = document.getElementById("product-merch-type-edit");
+    let merchType  = document.getElementById("product-select-edit");
     let stock = document.getElementById("product-stock-edit");
     
 
@@ -181,7 +181,7 @@ editProduct = async() =>{
     let title = document.getElementById("product-title-edit");
     let price = document.getElementById("product-price-edit");
     let description = document.getElementById("product-description-edit");
-    let merchType  = document.getElementById("product-merch-type-edit");
+    let merchType  = document.getElementById("product-select-edit");
     let stock = document.getElementById("product-stock-edit");
     let image = document.getElementById("product-image-edit");
     
@@ -225,10 +225,9 @@ deleteProduct = async(productName) => {
         location.reload();
     }
 }
-    
-toggleProductSelect = () => {
-    let optionsBox = document.getElementsByClassName("options")[0];
-    let selectContainer = document.getElementsByClassName("select-container")[0];
+
+
+toggleProductHelper = (optionsBox, selectContainer) =>{
     if(optionsBox.style.visibility == "visible")
     {
         optionsBox.style.visibility = "hidden";
@@ -239,6 +238,22 @@ toggleProductSelect = () => {
         selectContainer.style.borderRadius = "var(--default-border-radius) var(--default-border-radius) 0 0";
     }
 }
+    
+toggleProductSelect = () =>{
+    let optionsBox = document.getElementById("options-add");
+    let selectContainer = document.getElementById("select-container-add");
+    toggleProductHelper(optionsBox, selectContainer);
+}
+
+
+
+toggleProductSelectEdit = () => {
+    let optionsBox = document.getElementById("options-edit");
+    let selectContainer = document.getElementById("product-select-edit");
+    toggleProductHelper(optionsBox, selectContainer);
+}
+
+
 
 
 
@@ -309,19 +324,38 @@ document.addEventListener("DOMContentLoaded", async()=>{
 
 
         for(let index = 0; index < merchTypes.length; index++){
-            let container = document.createElement("div")
-            let optionsBox = document.getElementsByClassName("options")[0];
+            let container = document.createElement("div");
+            let containerEdit = document.createElement("div");
+
+
+            let optionsBox = document.getElementById("options-add");
+            let optionsBoxEdit = document.getElementById("options-edit");
     
-            container.className = "option"
-            const headingText = document.createTextNode(`${merchTypes[index]["name"]}`);
+            container.className = "option";
+            containerEdit.className = "option";
+            let headingText = document.createTextNode(`${merchTypes[index]["name"]}`);
+            let headingTextEdit = document.createTextNode(`${merchTypes[index]["name"]}`);
+            
 
             container.appendChild(headingText);
             optionsBox.appendChild(container);
+            containerEdit.appendChild(headingTextEdit);
+        
+            optionsBoxEdit.appendChild(containerEdit);
+
+    
             container.addEventListener("click", () =>{
-                let optionsDisplay= document.getElementsByClassName("product-select")[0];
+                let optionsDisplay= document.getElementById("product-select-add");
                 optionsDisplay.innerHTML = merchTypes[index]["name"];
                 toggleProductSelect();
             });
+
+            containerEdit.addEventListener("click", () =>{
+                let optionsDisplay= document.getElementById("product-select-edit");
+                optionsDisplay.innerHTML = merchTypes[index]["name"];
+                toggleProductSelectEdit();
+            });
+
         }
     
     }
@@ -332,11 +366,11 @@ document.addEventListener("DOMContentLoaded", async()=>{
               <div class = "login-box">
                   <div class="login-box-text">
                       <div class="login-box-username-text">
-                          Enter Admin Username UWU
+                          Enter Admin Username
                       </div>
                       <input type="text" class="username" id="username">
                       <div class="login-box-username-text">
-                          Enter the Password nya~~
+                          Enter Password
                       </div>
                       <input type="password" class="username" id="password">
                       <div>
